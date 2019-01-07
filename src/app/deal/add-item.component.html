@@ -1,0 +1,164 @@
+ <form [formGroup]="itemForm" (ngSubmit)="onSubmit()"  autocomplete="off">
+   <div class="row">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Add Item</h3>
+    </div>
+    <div class="panel-body">
+        <div class=" col-xs-12 col-md-6 form-group">
+            <label class="col-sm-2 control-label" for="item">Item Type<span>*</span></label>
+            <div class= "col-md-5">
+              <select formControlName="item" id="item"  class="form-control" required (click)="itemOpt()" [(ngModel)]="item">
+                  <option>select</option>
+                  <option value="1">Deal</option>
+                  <option value="2">Coupon</option>
+                  <option value="3">Event</option>
+                  <option value="4">Travel</option>
+                  <option value="5">Things to do</option>
+                  <option value="6">Food</option>
+              </select>
+            </div>     
+        </div>  
+
+        <div class=" col-xs-12 col-md-6 form-group" [ngClass]="{'has-error': itemForm.get('email').errors && (itemForm.get('email').touched || itemForm.get('email').dirty)}">
+            <label class="col-sm-2 control-label" for="email">Email<span>*</span></label>
+            <div class= "col-md-5">
+               <input id="email" formControlName="email" type="text" class="form-control" required>
+               <span class="help-block" *ngIf="itemForm.get('email').errors && (itemForm.get('email').touched || itemForm.get('email').dirty)">
+                  <span *ngIf="itemForm.get('email').errors.required">
+                      Email is required
+                  </span>
+               </span>
+            </div>
+          </div>
+
+                  
+        <div class=" col-xs-12 col-md-6 form-group" [ngClass]="{'has-error': itemForm.get('title').errors && (itemForm.get('title').touched || itemForm.get('title').dirty)}">
+            <label class="col-sm-2 control-label" for="title">Title<span>*</span></label>
+            <div class= "col-md-5">
+               <input id="title" formControlName="title"  type="text" class="form-control" required>
+
+                    <span class="help-block" *ngIf="itemForm.get('title').errors && (itemForm.get('title').touched || itemForm.get('title').dirty)">
+                      <span *ngIf="itemForm.get('title').errors.required">
+                          Title is required 
+                      </span>
+                      <!-- <span *ngIf="(itemForm.get('title').errors.minlength || itemForm.get('title').errors.maxlength)">
+                          Title of min 10 characters and max of 20 characters is required
+                      </span> -->
+                    </span> 
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-6 form-group" [ngClass]="{'has-error': itemForm.get('description').errors && (itemForm.get('description').touched || itemForm.get('description').dirty)}">
+          <label class="col-sm-2 control-label" for="description">Description<span>*</span></label>
+          <div class= "col-md-5">
+             <textarea id="description" formControlName="description" type="text" class="form-control" rows="4" cols="50" required></textarea>
+             <span class="help-block" *ngIf="itemForm.get('description').errors && (itemForm.get('description').touched || itemForm.get('description').dirty)">
+                <span *ngIf="itemForm.get('description').errors.required">
+                    Description is required
+                </span>
+                </span>
+            </div>
+       </div>
+
+
+        <div class=" col-xs-12 col-md-6 form-group">
+            <label class="col-sm-2 control-label" for="imageUrl">ImageUrl</label>
+            <div class= "col-md-5">
+               <input id="imageUrl" formControlName="imageUrl" type="text" class="form-control" placeholder="https://www.gstatic.com/webp/gallery/1.jpg" (click)= "changeValue()">
+
+            </div>
+            <label  class="col-sm-2 control-label" style="float:right;">or</label>
+        </div>
+        <!-- <div class="col-xs-12 col-md-6 form-group" style="float:right;">
+          <label class="col-sm-2 control-label">OR</label>
+        </div> -->
+
+     <div class="col-xs-12 col-md-6 form-group">
+        <label class="col-sm-2 control-label" for="inputFileToLoad">Upload</label>
+        <div class= "col-md-5">
+           <input id="inputFileToLoad" formControlName="inputFileToLoad" type="file" class="form-control" style="display:none;">
+           <input type="button"  class ="btn btn-primary" value="Browse..." onclick="document.getElementById('inputFileToLoad').click();"/>
+        </div>
+        <div class="col-sm-8">
+            <input type="hidden" id="base64ImageBytes" formControlName="base64ImageBytes" class="form-control">
+         </div>
+     </div>
+
+     <div class=" col-xs-12 col-md-6 form-group">
+      <label class="col-sm-2 control-label" for="expDate">Expiry</label>
+        <div class= "col-md-5">
+            <input id="expDate" formControlName="expDate" type="text" bsDatepicker class="form-control" autocomplete="off"> 
+        
+        </div>
+     </div>
+
+      <div class="col-xs-12 col-md-6 form-group">
+          <label class="col-sm-2 control-label" for="vendor">Vendor</label>
+          <div class= "col-md-5">
+             <input id="vendor" formControlName="vendor" type="text" class="form-control">
+          </div>
+      </div>
+
+        <div class="col-xs-12 col-md-6 form-group">
+            <label class="col-sm-2 control-label" for="Url">URL</label>
+            <div class= "col-md-5">
+               <input id="Url" formControlName="Url" type="text" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-md-6 form-group">
+              <label class="col-sm-2 control-label" for="keywords">Keywords</label>
+              <div class= "col-md-5">
+                 <input id="keywords" formControlName="keywords" type="text" class="form-control">
+              </div>
+          </div>
+
+          <div class="col-xs-12 col-md-6 form-group">
+              <label class="col-sm-2 control-label" for="zipCode">ZipCode</label>
+              <div class= "col-md-5">
+                 <input id="zipCode" formControlName="zipCode" type="text" class="form-control">
+              </div> 
+              <label  class="col-sm-2 control-label" style="float:right;">or</label>         
+          </div>
+         
+          <!-- <div class="form-group">
+              <label class="col-sm-2 control-label">OR</label>
+          </div>
+ -->
+          <div class=" col-xs-12 col-md-6 form-group">
+              <label class="col-sm-2 control-label" for="city">City</label>
+              <div class= "col-md-5">
+                 <input id="city" formControlName="city" type="text" class="form-control">
+              </div>
+              
+          </div>
+
+          <div class=" col-xs-12 col-md-6 form-group" *ngIf="showCoup">
+              <label class="col-sm-2 control-label" for="code">CouponCode</label>
+              <div class= "col-md-5">
+                 <input id="code" formControlName="code" type="text" class="form-control">
+              </div>
+          </div>
+
+          
+          <div class="col-xs-12 col-md-6 form-group">
+            <label class="col-sm-2 control-label" for="brand">Brand</label>
+            <div class= "col-md-5">
+               <input id="brand" formControlName="brand" type="text" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-md-6 form-group">
+              <div class= "col-md-5">
+                 <input id="timeStamp" formControlName="timeStamp" type="hidden" class="form-control">
+              </div>
+          </div>
+
+    </div>
+    <div class="panel-footer">
+        <button class="btn btn-primary" type="submit">POST</button>
+    </div>
+  </div>
+ </div>
+</form> 
